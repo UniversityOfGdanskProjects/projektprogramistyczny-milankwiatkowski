@@ -2,41 +2,33 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
-export default function LoginPage() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [password2, setSecondPassword] = useState<string>("")
+export default function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  const router = useRouter()
-  function checkemail(){
-    if (email.includes("@")){
-      return true
-    }
-    else{
-      return false
-    }
-  }
-  function handleLogin(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!email || !password || !password2) {
+  const router = useRouter();
+
+  function rejestracja(dane: { email: string; haslo: string; powtorzhaslo: string }) {
+    if (!dane.email || !dane.haslo || !dane.powtorzhaslo) {
       setError("Wszystkie pola są wymagane!");
       return;
     }
-    if (password === password2 && checkemail() == true) {
+    if (dane.haslo === dane.powtorzhaslo) {
       setError("");
-      const osiagniecia: Array<String> = []
-      const odblokowane_postacie: Array<String> = []
-      localStorage.setItem("email",email)
-      localStorage.setItem("haslo",password)
-      localStorage.setItem("punkty","0")
-      localStorage.setItem("poziom","1")
-      localStorage.setItem("osiagniecia",JSON.stringify(osiagniecia))
-      localStorage.setItem("odblokowane_postacie",JSON.stringify(odblokowane_postacie))
-      router.push("/login")
+      const osiagniecia: string[] = [];
+      const odblokowane_filmy: string[] = [];
+      localStorage.setItem("email", dane.email);
+      localStorage.setItem("haslo", dane.haslo);
+      localStorage.setItem("Punkty", JSON.stringify(0));
+      localStorage.setItem("Poziom", JSON.stringify(1));
+      localStorage.setItem("Osiągnięcia", JSON.stringify(osiagniecia));
+      localStorage.setItem("Odblokowane Filmy", JSON.stringify(odblokowane_filmy));
+      localStorage.setItem("Utworzone Quizy", JSON.stringify(0));
+      router.push("/login");
     } else {
-      setError("Nieprawidłowy e-mail lub hasła!");
+      setError("Hasła się nie zgadzają!");
     }
   }
 
@@ -44,38 +36,42 @@ export default function LoginPage() {
     <main className="flex flex-col items-center justify-center h-screen">
       {isLoggedIn ? (
         <div>
-          <h1>Witaj, {email}!</h1>
+          <h1>Witaj!</h1>
           <button onClick={() => setIsLoggedIn(false)}>Wyloguj</button>
         </div>
       ) : (
-        <form onSubmit={handleLogin} className="flex flex-col gap-4">
-          <h1>Logowanie</h1>
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          
-          <input
-            type="email"
-            placeholder="E-mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="border p-2"
-          />
-          <input
-            type="password"
-            placeholder="Hasło"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="border p-2"
-          />
-            <input
-            type="password"
-            placeholder="Powtórz hasło"
-            value={password2}
-            onChange={(e) => setSecondPassword(e.target.value)}
-            className="border p-2"
-          />
-          
-          <button type="submit" className="bg-blue-500 text-white p-2">Zarejestruj się</button>
-        </form>
+        <Formik
+          initialValues={{ email: "", haslo: "", powtorzhaslo: "" }}
+          validationSchema={Yup.object({
+            email: Yup.string().email("Nieprawidłowy email").required("Wymagane"),
+            haslo: Yup.string().min(6, "Min. 6 znaków").required("Wymagane"),
+            powtorzhaslo: Yup.string()
+              .oneOf([Yup.ref("haslo")], "Hasła muszą być takie same")
+              .required("Potwierdzenie hasła jest wymagane"),
+          })}
+          onSubmit={rejestracja}
+        >
+          {({ isSubmitting }) => (
+            <Form className="flex flex-col gap-3">
+              {error && <div className="text-red-500">{error}</div>}
+              <label>Email:</label>
+              <Field type="email" name="email" />
+              <ErrorMessage name="email" component="div" className="text-red-500" />
+
+              <label>Hasło:</label>
+              <Field type="password" name="haslo" />
+              <ErrorMessage name="haslo" component="div" className="text-red-500" />
+
+              <label>Powtórz hasło:</label>
+              <Field type="password" name="powtorzhaslo" />
+              <ErrorMessage name="powtorzhaslo" component="div" className="text-red-500" />
+
+              <button type="submit" disabled={isSubmitting} className="bg-blue-500 text-white px-4 py-2 rounded">
+                Zarejestruj
+              </button>
+            </Form>
+          )}
+        </Formik>
       )}
     </main>
   );

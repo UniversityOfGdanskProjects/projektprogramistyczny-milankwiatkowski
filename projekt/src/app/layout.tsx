@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Zgadnij postać historyczną!",
+  title: "Zgadnij film!",
   description: "By: Milan Kwiatkowski",
 };
 
