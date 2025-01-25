@@ -8,7 +8,7 @@ export default function TworzenieQuizu() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const router = useRouter();
-  const dodaj_quiz = async (dane: {tytul:string,opis:string,podpowiedz:string, typ_quizu:string,gatunki:Array<number>,ocena:number,rok_produkcji:string}) => {
+  const dodaj_quiz = async (dane: {quiz_id:number,tytul:string,opis:string,podpowiedz:string, typ_quizu:string,gatunki:Array<number>,ocena:number,rok_produkcji:string}) => {
     const options = {
       method: 'GET',
       headers: {
@@ -24,12 +24,21 @@ export default function TworzenieQuizu() {
           dane.ocena = res.results[0].vote_average
           dane.rok_produkcji = res.results[0].release_date
           dane.gatunki = res.results[0].genre_ids
-          fetch("/api", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(dane),
-          });
-          router.push("/")
+          fetch("/api/get_quiz_id",{
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+          })
+          .then(res2=>res2.json())
+          .then(res2=>{
+            dane.quiz_id=res2+1
+            fetch("/api/posting", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(dane),
+            });
+          })
+          .catch(err=>console.log(err))
+          // router.push("/")
         }
         else{
           setError("Nie ma filmu o takim tytule!")
@@ -46,7 +55,7 @@ export default function TworzenieQuizu() {
         </div>
       ) : (
         <Formik
-          initialValues={{ tytul: "", opis: "", podpowiedz: "",typ_quizu:"", gatunki:[],ocena:0,rok_produkcji:"",}}
+          initialValues={{quiz_id:0, tytul: "", opis: "", podpowiedz: "",typ_quizu:"", gatunki:[],ocena:0,rok_produkcji:"",}}
           validationSchema={Yup.object({
             tytul: Yup.string().required("Wymagane"),
             opis: Yup.string().min(6, "Min. 6 znaków").required("Wymagane"),
