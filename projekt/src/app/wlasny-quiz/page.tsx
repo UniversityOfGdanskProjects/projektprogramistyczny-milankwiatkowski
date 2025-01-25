@@ -1,5 +1,5 @@
 "use client";
-import { useEffect,useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -8,7 +8,7 @@ export default function TworzenieQuizu() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const router = useRouter();
-  const dodaj_quiz = async (dane: {tytul:string,opis:string,podpowiedz:string, typ_quizu:string}) => {
+  const dodaj_quiz = async (dane: {tytul:string,opis:string,podpowiedz:string, typ_quizu:string,gatunki:Array<number>,ocena:number,rok_produkcji:string}) => {
     const options = {
       method: 'GET',
       headers: {
@@ -17,10 +17,13 @@ export default function TworzenieQuizu() {
       }
     };
     const query = encodeURIComponent(dane.tytul)
-    fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`, options)
+    fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=true&page=1`, options)
       .then(res => res.json())
       .then(res =>{
         if(res.total_results!==0){
+          dane.ocena = res.results[0].vote_average
+          dane.rok_produkcji = res.results[0].release_date
+          dane.gatunki = res.results[0].genre_ids
           fetch("/api", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -43,12 +46,12 @@ export default function TworzenieQuizu() {
         </div>
       ) : (
         <Formik
-          initialValues={{ tytul: "", opis: "", podpowiedz: "",typ_quizu:""}}
+          initialValues={{ tytul: "", opis: "", podpowiedz: "",typ_quizu:"", gatunki:[],ocena:0,rok_produkcji:"",}}
           validationSchema={Yup.object({
             tytul: Yup.string().required("Wymagane"),
             opis: Yup.string().min(6, "Min. 6 znaków").required("Wymagane"),
             podpowiedz: Yup.string(),
-            typ_quizu: Yup.string().required("Wybierz typ quizu"),
+            typ_quizu: Yup.string().min(2,"Wybierz typ quizu!").required("Wybierz typ quizu"),
           })}
           onSubmit={dodaj_quiz}
         >
@@ -69,6 +72,7 @@ export default function TworzenieQuizu() {
 
               <label>Typ Quizu:</label>
               <Field as="select" name="typ_quizu">
+              <option value=""></option>
               <option value="Tekstowy">Tekstowy</option>
               <option value="Graficzny">Graficzny</option>
               </Field>
