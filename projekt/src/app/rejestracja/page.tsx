@@ -55,17 +55,23 @@ export default function Login() {
             <Form className="flex flex-col gap-3">
               {error && <div className="text-red-500">{error}</div>}
               <label>Email:</label>
+              <br></br>
               <Field type="email" name="email" />
+              <br></br>
               <ErrorMessage name="email" component="div" className="text-red-500" />
 
               <label>Hasło:</label>
+              <br></br>
               <Field type="password" name="haslo" />
+              <br></br>
               <ErrorMessage name="haslo" component="div" className="text-red-500" />
 
               <label>Powtórz hasło:</label>
+              <br></br>
               <Field type="password" name="powtorzhaslo" />
+              <br></br>
               <ErrorMessage name="powtorzhaslo" component="div" className="text-red-500" />
-
+              <br></br>
               <button type="submit" disabled={isSubmitting} className="bg-blue-500 text-white px-4 py-2 rounded">
                 Zarejestruj
               </button>
