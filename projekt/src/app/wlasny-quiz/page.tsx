@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -8,6 +8,9 @@ export default function TworzenieQuizu() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const router = useRouter();
+  useEffect(()=>{
+    document.title="Stwórz swój własny quiz!"
+  })
   const dodaj_quiz = async (dane: {quiz_id:number,tytul:string,opis:string,podpowiedz:string, typ_quizu:string,gatunki:Array<number>,ocena:number,rok_produkcji:string}) => {
     const options = {
       method: 'GET',
@@ -94,7 +97,7 @@ export default function TworzenieQuizu() {
               <ErrorMessage name="typ_quizu" component="div" className="text-red-500" />
               
               <button type="submit" disabled={isSubmitting} className="bg-blue-500 text-white px-4 py-2 rounded">
-                Zarejestruj
+                Utwórz Quiz
               </button>
             </Form>
           )}

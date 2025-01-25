@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -9,6 +9,9 @@ export default function LoginPage() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const router = useRouter()
+  useEffect(()=>{
+    document.title="Zaloguj się do Filmdle!"
+  })
   function login(dane: {email:string,haslo:string}): void {
     if (!dane.email || !dane.haslo) {
       setError("Wszystkie pola są wymagane!");
@@ -22,7 +25,6 @@ export default function LoginPage() {
       setError("Nieprawidłowy e-mail lub hasło!");
     }
   }
-
   return (
       <main className="flex flex-col items-center justify-center h-screen">
         {isLoggedIn ? (

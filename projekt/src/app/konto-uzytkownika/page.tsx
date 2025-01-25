@@ -7,10 +7,13 @@ export default function KontoUzytkownika() {
   function fota(){
     return localStorage.getItem("Profilowe");
   }
+  useEffect(()=>{
+    document.title="Twoje konto Filmdle"
+  })
   useEffect(() => {
     const data: [string, string][] = Object.entries(localStorage);
     const data2: [string,string][] = data.filter(
-        ([klucz]) => klucz !== "haslo" && klucz !== "ally-supports-cache"
+        ([klucz]) => klucz !== "haslo" && klucz !== "ally-supports-cache" && klucz !== "__NEXT_DISMISS_PRERENDER_INDICATOR" && klucz !== "Profilowe" && klucz !== "Odblokowane Quizy"
       );
     setStorageData(data2);
   }, []);
@@ -18,7 +21,7 @@ export default function KontoUzytkownika() {
   return (
     <main>
       <div>{profilowe ? (
-        <img src={profilowe} alt="Obrazek z localStorage" />
+        <img src={profilowe} alt="Obrazek z localStorage" width="150px"/>
       ) : (
         <p></p>
       )}</div>

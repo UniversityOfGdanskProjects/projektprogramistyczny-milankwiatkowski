@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+// import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -17,14 +17,16 @@ export default function Home() {
   function utworz_quiz(): void{
     router.push("/wlasny-quiz")
   }
+  function sklep(): void{
+    router.push("/sklep")
+  }
   return (
     <main>
-      <nav>
-        <button onClick={user}>HEJO</button>
-      </nav>
+      <button onClick={user}>HEJO</button>
       <button onClick={tekstowy}>Tryb Tekstowy</button>
       <button onClick={graficzny}>Tryb Graficzny</button>
       <button onClick={utworz_quiz}>Utwórz Quiz</button>
+      <button onClick={sklep}>Sklep z akcesoriami</button>
     </main>
   );
 }

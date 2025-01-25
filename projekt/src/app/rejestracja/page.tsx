@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -9,7 +9,9 @@ export default function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const router = useRouter();
-
+    useEffect(()=>{
+      document.title="🔥Zarejestuj się już teraz!🔥"
+    })
   function rejestracja(dane: { email: string; haslo: string; powtorzhaslo: string }) {
     if (!dane.email || !dane.haslo || !dane.powtorzhaslo) {
       setError("Wszystkie pola są wymagane!");
