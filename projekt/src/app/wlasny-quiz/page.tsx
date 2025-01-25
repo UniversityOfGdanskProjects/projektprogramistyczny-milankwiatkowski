@@ -38,7 +38,12 @@ export default function TworzenieQuizu() {
             });
           })
           .catch(err=>console.log(err))
-          // router.push("/")
+          const moje_quizy = localStorage.getItem("Utworzone Quizy")
+          if(moje_quizy){
+            const parsed:number = JSON.parse(moje_quizy)
+            localStorage.setItem("Utworzone Quizy",JSON.stringify(parsed+1))
+          }
+          router.push("/")
         }
         else{
           setError("Nie ma filmu o takim tytule!")
