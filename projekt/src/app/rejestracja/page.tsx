@@ -15,17 +15,38 @@ export default function Login() {
       setError("Wszystkie pola są wymagane!");
       return;
     }
+    async function zapiszobrazek() {
+      try {
+        const response = await fetch(`/user-icon.png`);
+        if (!response.ok) throw new Error("Błąd pobierania obrazka");
+  
+        const blob = await response.blob();
+        const odczyt = new FileReader();
+        odczyt.readAsDataURL(blob);
+        odczyt.onloadend = () => {
+          const base64String = odczyt.result as string;
+          localStorage.setItem("Profilowe", base64String);
+        };
+  
+      } catch (err) {
+        console.error("Błąd podczas pobierania obrazka:", err);
+        setError("Nie udało się pobrać obrazka.");
+      }
+    }
     if (dane.haslo === dane.powtorzhaslo) {
       setError("");
       const osiagniecia: string[] = [];
       const odblokowane_filmy: string[] = [];
+      const odblokowane_id: number[] = []
       localStorage.setItem("email", dane.email);
       localStorage.setItem("haslo", dane.haslo);
-      localStorage.setItem("Punkty", JSON.stringify(0));
       localStorage.setItem("Poziom", JSON.stringify(1));
       localStorage.setItem("Osiągnięcia", JSON.stringify(osiagniecia));
       localStorage.setItem("Odblokowane Filmy", JSON.stringify(odblokowane_filmy));
+      localStorage.setItem("Odblokowane Quizy", JSON.stringify(odblokowane_id));
       localStorage.setItem("Utworzone Quizy", JSON.stringify(0));
+      localStorage.setItem("MilanCoiny", JSON.stringify(0));
+      zapiszobrazek()
       router.push("/login");
     } else {
       setError("Hasła się nie zgadzają!");
