@@ -6,8 +6,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const router = useRouter()
