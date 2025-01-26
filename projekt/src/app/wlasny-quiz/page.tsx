@@ -11,7 +11,7 @@ export default function TworzenieQuizu() {
   useEffect(()=>{
     document.title="Stwórz swój własny quiz!"
   })
-  const dodaj_quiz = async (dane: {quiz_id:number,tytul:string,opis:string,podpowiedz:string, typ_quizu:string,gatunki:Array<number>,ocena:number,rok_produkcji:string}) => {
+  const dodaj_quiz = async (dane: {quiz_id:number,tytul:string,opis:string,podpowiedz:string, typ_quizu:string,gatunki:Array<number>,ocena:number,rok_produkcji:string,film_id:number,sciezka_obraz:string,}) => {
     const options = {
       method: 'GET',
       headers: {
@@ -27,6 +27,7 @@ export default function TworzenieQuizu() {
           dane.ocena = res.results[0].vote_average
           dane.rok_produkcji = res.results[0].release_date
           dane.gatunki = res.results[0].genre_ids
+          dane.film_id = res.results[0].id
           fetch("/api/get_quiz_id",{
             method: "GET",
             headers: { "Content-Type": "application/json" }
@@ -63,7 +64,7 @@ export default function TworzenieQuizu() {
         </div>
       ) : (
         <Formik
-          initialValues={{quiz_id:0, tytul: "", opis: "", podpowiedz: "",typ_quizu:"", gatunki:[],ocena:0,rok_produkcji:"",}}
+          initialValues={{quiz_id:0, tytul: "", opis: "", podpowiedz: "",typ_quizu:"", gatunki:[],ocena:0,rok_produkcji:"",film_id:0,sciezka_obraz:"",}}
           validationSchema={Yup.object({
             tytul: Yup.string().required("Wymagane"),
             opis: Yup.string().min(6, "Min. 6 znaków").required("Wymagane"),
@@ -72,7 +73,7 @@ export default function TworzenieQuizu() {
           })}
           onSubmit={dodaj_quiz}
         >
-          {({ isSubmitting }) => (
+          {({isSubmitting }) => (
             <Form className="flex flex-col gap-3">
               {error && <div className="text-red-500">{error}</div>}
               <label>Tytuł:</label>
@@ -93,9 +94,7 @@ export default function TworzenieQuizu() {
               <option value="Tekstowy">Tekstowy</option>
               <option value="Graficzny">Graficzny</option>
               </Field>
-
               <ErrorMessage name="typ_quizu" component="div" className="text-red-500" />
-              
               <button type="submit" disabled={isSubmitting} className="bg-blue-500 text-white px-4 py-2 rounded">
                 Utwórz Quiz
               </button>
