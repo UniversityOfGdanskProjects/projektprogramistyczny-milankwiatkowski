@@ -1,23 +1,6 @@
 "use client";
-
-import { useEffect } from "react";
-// import { useRouter } from "next/navigation";
-export default function ClearLocalStorageButton() {
-  const handleClear = () => {
-    localStorage.clear();
-    alert("LocalStorage wyczyszczone!");
-  };
-    useEffect(()=>{
-      document.title="Wybierz quiz do rozwiązania!"
-    })
-  return <button onClick={handleClear}>Wyczyść localStorage</button>;
+import Nawigacja from "@/app/components/nav"
+import QuizyGraficzne from "@/app/components/graficzne"
+export default function GRAF() {
+  return (<><Nawigacja/><QuizyGraficzne/></>)
 }
-// export default function Home() {
-//   const router = useRouter()
-
-//   return (
-//     <main>
-//         Tryb Graficzny
-//     </main>
-//   );
-// }

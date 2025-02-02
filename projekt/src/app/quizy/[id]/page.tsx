@@ -1,4 +1,5 @@
 "use client";
+import Nawigacja from "@/app/components/nav"
 import { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -13,7 +14,8 @@ type Quiz = {
   ocena:number,
   rok_produkcji:string,
   film_id:number,
-  sciezka_obraz:string
+  sciezka_obraz:string,
+  tworca:string
 }
 type gatunki = {
   id:number,
@@ -120,7 +122,7 @@ export default function QuizyTekstowe({params}: {params: {id:string}}) {
         setend(false)
         pokazalert(true)
         pokazalert2("Wygrałeś!")
-        if(if_used_hints==false){
+        if(if_used_hints==false && klikniecia>7){
           osiagniecia("Cierpliwy")
         }
         if(klikniecia==2){
