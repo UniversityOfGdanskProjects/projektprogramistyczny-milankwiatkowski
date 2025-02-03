@@ -14,21 +14,21 @@ export default function Home() {
   function usunLocalStorage(): void{
     router.push("/usun-localStorage")
   }
-  function user(): void{
-    router.push("/konto-uzytkownika")
+  function utworz_quiz_txt(): void{
+    router.push("/wlasny-quiz-tekstowy")
   }
-  function utworz_quiz(): void{
-    router.push("/wlasny-quiz")
+  function utworz_quiz_graf(): void{
+    router.push("/wlasny-quiz-graficzny")
   }
   function sklep(): void{
     router.push("/sklep")
   }
   return (
     <main>
-      <button onClick={user}>HEJO</button>
       <button onClick={tekstowy}>Tryb Tekstowy</button>
       <button onClick={graficzny}>Tryb Graficzny</button>
-      <button onClick={utworz_quiz}>Utwórz Quiz</button>
+      <button onClick={utworz_quiz_txt}>Utwórz Quiz Tekstowy</button>
+      <button onClick={utworz_quiz_graf}>Utwórz Quiz Graficzny</button>
       <button onClick={sklep}>Sklep z akcesoriami</button>
       <button onClick={usunLocalStorage}>Usuń LocalStorage</button>
     </main>

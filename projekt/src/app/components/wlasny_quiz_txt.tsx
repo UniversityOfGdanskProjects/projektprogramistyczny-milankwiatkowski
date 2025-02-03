@@ -11,7 +11,7 @@ export default function TworzenieQuizu() {
   useEffect(()=>{
     document.title="Stwórz własny quiz na Filmdle!"
   })
-  const dodaj_quiz = async (dane: {quiz_id:number,tytul:string,opis:string,podpowiedz:string, typ_quizu:string,gatunki:Array<number>,ocena:number,rok_produkcji:string,film_id:number,sciezka_obraz:string,tworca:string,}) => {
+  const dodaj_quiz = async (dane: {nazwa_quizu:string,quiz_id:number,tytul:string,opis:string,podpowiedz:string, typ_quizu:string,gatunki:Array<number>,ocena:number,rok_produkcji:string,film_id:number,tworca:string,}) => {
     const options = {
       method: 'GET',
       headers: {
@@ -68,19 +68,23 @@ export default function TworzenieQuizu() {
         </div>
       ) : (
         <Formik
-          initialValues={{quiz_id:0, tytul: "", opis: "", podpowiedz: "",typ_quizu:"", gatunki:[],ocena:0,rok_produkcji:"",film_id:0,sciezka_obraz:"",tworca:"",}}
+          initialValues={{nazwa_quizu:"",quiz_id:0, tytul: "", opis: "", podpowiedz: "",typ_quizu:"Tekstowy", gatunki:[],ocena:0,rok_produkcji:"",film_id:0,tworca:"",}}
           validationSchema={Yup.object({
             tytul: Yup.string().required("Wymagane"),
             opis: Yup.string().min(6, "Min. 6 znaków").required("Wymagane"),
+            nazwa_quizu: Yup.string().min(6, "Min. 6 znaków").required("Wymagane"),
             podpowiedz: Yup.string(),
-            typ_quizu: Yup.string().min(2,"Wybierz typ quizu!").required("Wybierz typ quizu"),
           })}
           onSubmit={dodaj_quiz}
         >
           {({isSubmitting }) => (
             <Form className="flex flex-col gap-3">
               {error && <div className="text-red-500">{error}</div>}
-              <label>Tytuł:</label>
+              <label>Nazwa Quizu:</label>
+              <Field name="nazwa_quizu" />
+              <ErrorMessage name="nazwa_quizu" component="div" className="text-red-500" />
+
+              <label>Tytuł filmu:</label>
               <Field name="tytul" />
               <ErrorMessage name="tytul" component="div" className="text-red-500" />
 
@@ -92,13 +96,6 @@ export default function TworzenieQuizu() {
               <Field name="podpowiedz" />
               <ErrorMessage name="podpowiedz" component="div" className="text-red-500" />
 
-              <label>Typ Quizu:</label>
-              <Field as="select" name="typ_quizu">
-              <option value=""></option>
-              <option value="Tekstowy">Tekstowy</option>
-              <option value="Graficzny">Graficzny</option>
-              </Field>
-              <ErrorMessage name="typ_quizu" component="div" className="text-red-500" />
               <button type="submit" disabled={isSubmitting} className="bg-blue-500 text-white px-4 py-2 rounded">
                 Utwórz Quiz
               </button>

@@ -3,6 +3,7 @@ import {useEffect} from "react"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 type Quiz = {
+  nazwa_quizu:string
   quiz_id: number,
   tytul:string,
   opis:string,
@@ -38,7 +39,7 @@ export default function QuizyGraficzne() {
         <ul>
         {quizy ? (quizy.map((x) => (
           <li key={x.quiz_id}>
-            <button onClick={() => move_to_quiz(x.quiz_id)}><strong>{x.tytul.toUpperCase()}</strong><br></br><strong>By: {x.tworca}</strong></button>
+            <button onClick={() => move_to_quiz(x.quiz_id)}><strong>{x.nazwa_quizu.toUpperCase()}</strong><br></br><strong>By: {x.tworca}</strong></button>
           </li>
         ))):(<p></p>)}
       </ul>

@@ -8,6 +8,22 @@ export default function Sklep() {
   const [Alert, pokazalert] = useState(false);
   const [latestalert,pokazalert2] = useState<string>("")
   const [error,setError] = useState<string>("")
+  function osiagniecia(osiagniecie:string){
+    const kaska = localStorage.getItem("MilanCoiny")
+    const achievements = localStorage.getItem("Osiągnięcia")
+        if(achievements && kaska){
+          const parsed:string[] = JSON.parse(achievements)
+          const finder = parsed.findIndex(p => p === osiagniecie)
+          if(finder===-1){
+            const parsed_kaska:number = JSON.parse(kaska)
+            pokazalert(true)
+            pokazalert2(`Zdobywasz osiągnięcie - "${osiagniecie}" ! W nagrodę otrzymjesz 30 MilanCoinów!`)
+            parsed.push(osiagniecie)
+            localStorage.setItem("Osiągnięcia",JSON.stringify(parsed))
+            localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska+30))
+          }
+        }
+  }
   useEffect(()=>{
     document.title="Sklep z akcesoriami"
   })
@@ -31,13 +47,25 @@ export default function Sklep() {
   }
   async function kup(choice:number): Promise<void>{
     const kaska = localStorage.getItem("MilanCoiny")
-    if(kaska){
+    const awatary = localStorage.getItem("Zakupione Awatary")
+    const wydano = localStorage.getItem("Wydano na Awatary")
+    if(kaska && awatary && wydano){
         const parsed_kaska:number = JSON.parse(kaska)
+        const parsed_awatary:number = JSON.parse(awatary)
+        const parsed_wydano:number = JSON.parse(wydano)
         if(choice==1){
-            if(parsed_kaska>=10){
+            if(parsed_kaska>=100){
                 pokazalert(true)
                 pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 10 MilanCoinów!")
-                localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-10))
+                localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-100))
+                localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
+                localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+100))
+                if(parsed_awatary>4){
+                  osiagniecia("Kolekcjoner")
+                }
+                if(parsed_wydano+100>6000){
+                  osiagniecia("Burżuazja")
+                }
                 await zapiszobrazek("ja1.jpg")
             }
             else{
@@ -46,10 +74,18 @@ export default function Sklep() {
             }
         }
         else if(choice==2){
-            if(parsed_kaska>=20){
+            if(parsed_kaska>=200){
                 pokazalert(true)
                 pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 20 MilanCoinów!")
-                localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-20))
+                localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-200))
+                localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
+                localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+200))
+                if(parsed_awatary>4){
+                  osiagniecia("Kolekcjoner")
+                }
+                if(parsed_wydano+200>6000){
+                  osiagniecia("Burżuazja")
+                }
                 await zapiszobrazek("ja2.jpg")
             }
             else{
@@ -58,10 +94,18 @@ export default function Sklep() {
             }
         }
         else if(choice==3){
-            if(parsed_kaska>=30){
+            if(parsed_kaska>=300){
                 pokazalert(true)
                 pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 30 MilanCoinów!")
-                localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-30))
+                localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-300))
+                localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
+                localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+300))
+                if(parsed_awatary>4){
+                  osiagniecia("Kolekcjoner")
+                }
+                if(parsed_wydano+300>6000){
+                  osiagniecia("Burżuazja")
+                }
                 await zapiszobrazek("ja3.jpg")
             }
             else{
@@ -70,10 +114,18 @@ export default function Sklep() {
             }
         }
         else if(choice==4){
-          if(parsed_kaska>=40){
+          if(parsed_kaska>=400){
               pokazalert(true)
               pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 40 MilanCoinów!")
-              localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-40))
+              localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-400))
+              localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
+              localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+400))
+              if(parsed_awatary>4){
+                osiagniecia("Kolekcjoner")
+              }
+              if(parsed_wydano+400>6000){
+                osiagniecia("Burżuazja")
+              }
               await zapiszobrazek("bartolini-cropped.png")
           }
           else{
@@ -82,10 +134,18 @@ export default function Sklep() {
           }
         }
         else if(choice==5){
-          if(parsed_kaska>=50){
+          if(parsed_kaska>=500){
               pokazalert(true)
               pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 50 MilanCoinów!")
-              localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-50))
+              localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-500))
+              localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
+              localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+500))
+              if(parsed_awatary>4){
+                osiagniecia("Kolekcjoner")
+              }
+              if(parsed_wydano+500>6000){
+                osiagniecia("Burżuazja")
+              }
               await zapiszobrazek("gibalski-cropped.png")
           }
           else{
@@ -94,10 +154,18 @@ export default function Sklep() {
           }
         }
         else if(choice==6){
-          if(parsed_kaska>=60){
+          if(parsed_kaska>=600){
               pokazalert(true)
               pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 60 MilanCoinów!")
-              localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-60))
+              localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-600))
+              localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
+              localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+600))
+              if(parsed_awatary>4){
+                osiagniecia("Kolekcjoner")
+              }
+              if(parsed_wydano+600>6000){
+                osiagniecia("Burżuazja")
+              }
               await zapiszobrazek("osiol-cropped.png")
           }
           else{
@@ -106,10 +174,18 @@ export default function Sklep() {
           }
         }
         else if(choice==7){
-          if(parsed_kaska>=100){
+          if(parsed_kaska>=1000){
               pokazalert(true)
               pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 100 MilanCoinów!")
-              localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-100))
+              localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-1000))
+              localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
+              localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+1000))
+              if(parsed_awatary>4){
+                osiagniecia("Kolekcjoner")
+              }
+              if(parsed_wydano+1000>6000){
+                osiagniecia("Burżuazja")
+              }
               await zapiszobrazek("wojt-cropped.png")
           }
           else{
@@ -118,10 +194,18 @@ export default function Sklep() {
           }
         }
         else if(choice==8){
-          if(parsed_kaska>=100){
+          if(parsed_kaska>=1000){
               pokazalert(true)
               pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 100 MilanCoinów!")
-              localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-100))
+              localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-1000))
+              localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
+              localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+1000))
+              if(parsed_awatary>4){
+                osiagniecia("Kolekcjoner")
+              }
+              if(parsed_wydano+1000>6000){
+                osiagniecia("Burżuazja")
+              }
               await zapiszobrazek("ksiadz-cropped.png")
           }
           else{
@@ -130,10 +214,16 @@ export default function Sklep() {
           }
         }
         else if(choice==9){
-          if(parsed_kaska>=1000){
+          if(parsed_kaska>=10000){
               pokazalert(true)
               pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 1000 MilanCoinów!")
-              localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-1000))
+              localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-10000))
+              localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
+              localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+10000))
+              if(parsed_awatary>4){
+                osiagniecia("Kolekcjoner")
+              }
+              osiagniecia("Burżuazja")
               await zapiszobrazek("kiler-cropped.png")
           }
           else{

@@ -49,6 +49,8 @@ export default function Register() {
       localStorage.setItem("Odblokowane Quizy", JSON.stringify(odblokowane_id));
       localStorage.setItem("Utworzone Quizy", JSON.stringify(0));
       localStorage.setItem("MilanCoiny", JSON.stringify(0));
+      localStorage.setItem("Zakupione Awatary",JSON.stringify(0))
+      localStorage.setItem("Wydano na Awatary",JSON.stringify(0))
       zapiszobrazek()
       router.push("/login");
     } else {
