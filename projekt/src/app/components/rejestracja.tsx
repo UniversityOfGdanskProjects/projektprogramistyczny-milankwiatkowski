@@ -51,6 +51,8 @@ export default function Register() {
       localStorage.setItem("MilanCoiny", JSON.stringify(0));
       localStorage.setItem("Zakupione Awatary",JSON.stringify(0))
       localStorage.setItem("Wydano na Awatary",JSON.stringify(0))
+      localStorage.setItem("Zapisane Quizy",JSON.stringify([]))
+      localStorage.setItem("Zapisane Quizy ID",JSON.stringify([]))
       zapiszobrazek()
       router.push("/login");
     } else {

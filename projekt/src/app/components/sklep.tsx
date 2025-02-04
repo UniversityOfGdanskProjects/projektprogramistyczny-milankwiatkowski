@@ -56,7 +56,7 @@ export default function Sklep() {
         if(choice==1){
             if(parsed_kaska>=100){
                 pokazalert(true)
-                pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 10 MilanCoinów!")
+                pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 100 MilanCoinów!")
                 localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-100))
                 localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
                 localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+100))
@@ -76,7 +76,7 @@ export default function Sklep() {
         else if(choice==2){
             if(parsed_kaska>=200){
                 pokazalert(true)
-                pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 20 MilanCoinów!")
+                pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 200 MilanCoinów!")
                 localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-200))
                 localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
                 localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+200))
@@ -96,7 +96,7 @@ export default function Sklep() {
         else if(choice==3){
             if(parsed_kaska>=300){
                 pokazalert(true)
-                pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 30 MilanCoinów!")
+                pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 300 MilanCoinów!")
                 localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-300))
                 localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
                 localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+300))
@@ -116,7 +116,7 @@ export default function Sklep() {
         else if(choice==4){
           if(parsed_kaska>=400){
               pokazalert(true)
-              pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 40 MilanCoinów!")
+              pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 400 MilanCoinów!")
               localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-400))
               localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
               localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+400))
@@ -136,7 +136,7 @@ export default function Sklep() {
         else if(choice==5){
           if(parsed_kaska>=500){
               pokazalert(true)
-              pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 50 MilanCoinów!")
+              pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 500 MilanCoinów!")
               localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-500))
               localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
               localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+500))
@@ -156,7 +156,7 @@ export default function Sklep() {
         else if(choice==6){
           if(parsed_kaska>=600){
               pokazalert(true)
-              pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 60 MilanCoinów!")
+              pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 600 MilanCoinów!")
               localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-600))
               localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
               localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+600))
@@ -176,7 +176,7 @@ export default function Sklep() {
         else if(choice==7){
           if(parsed_kaska>=1000){
               pokazalert(true)
-              pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 100 MilanCoinów!")
+              pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 1000 MilanCoinów!")
               localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-1000))
               localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
               localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+1000))
@@ -196,7 +196,7 @@ export default function Sklep() {
         else if(choice==8){
           if(parsed_kaska>=1000){
               pokazalert(true)
-              pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 100 MilanCoinów!")
+              pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 1000 MilanCoinów!")
               localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-1000))
               localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
               localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+1000))
@@ -216,7 +216,7 @@ export default function Sklep() {
         else if(choice==9){
           if(parsed_kaska>=10000){
               pokazalert(true)
-              pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 1000 MilanCoinów!")
+              pokazalert2("Brawo, zakupiłeś nowe zdjęcie profilowe za 10000 MilanCoinów!")
               localStorage.setItem("MilanCoiny",JSON.stringify(parsed_kaska-10000))
               localStorage.setItem("Zakupione Awatary",JSON.stringify(parsed_awatary+1))
               localStorage.setItem("Wydano na Awatary",JSON.stringify(parsed_wydano+10000))

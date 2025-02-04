@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 // import { useRouter } from "next/navigation";
 type Quiz = {
+  nazwa_quizu:number,
   quiz_id: number,
   tytul:string,
   opis:string,
@@ -37,7 +38,8 @@ export default function QuizyTekstowe({params}: {params: {id:string}}) {
     const [ifended,setend] = useState<boolean>(true)
     const [ifalreadydone,checkifdone] = useState<boolean>(false)
     const [foteczka,zmienfote] = useState<string | null>(null)
-    const komentarze = ["Pudło!","No... nie.","Prawie byłeś nawet blisko!","Kieleckie jest cieplejsze niż ten strzał...","Przecież to oczywiste...","Spróbuj ponownie!"]
+    const [iffav,checkiffav] = useState<boolean>(false)
+    const komentarze = ["Pudło!","No... nie.","Prawie byłeś nawet blisko!","Kieleckie jest cieplejsze niż ten strzał...","Przecież to oczywiste...","Spróbuj ponownie!","Czekam na poprawną odpowiedź...","WIĘCEJ!","Nice try!","Praaaaaaaaaaaaaaaaaaaaaaawie!"]
     const options = {
       method: 'GET',
       headers: {
@@ -260,12 +262,50 @@ export default function QuizyTekstowe({params}: {params: {id:string}}) {
     function daj_podpowiedzi(){
       setHintsTrue(true)
       pokaz_podpowiedzi(true)
-    } 
+    }
+    useEffect(()=>{
+      const favs = localStorage.getItem("Zapisane Quizy ID")
+      if(favs && dane){
+        const parsed_favs = JSON.parse(favs)
+        const finder = parsed_favs.findIndex(p => p === dane.quiz_id)
+        if(finder!==-1){
+          checkiffav(true)
+        }
+      }
+    })
+    function dodaj_usun_ulubiony(){
+      if(dane){
+        const favs = localStorage.getItem("Zapisane Quizy ID")
+        const favs_user = localStorage.getItem("Zapisane Quizy")
+        if(favs && favs_user){
+          const parsed_favs = JSON.parse(favs)
+          const parsed_favs_user = JSON.parse(favs_user)
+          const finder = parsed_favs.findIndex(p => p === dane.quiz_id)
+          if(finder===-1){
+            parsed_favs.push(dane.quiz_id)
+            parsed_favs_user.push(dane.nazwa_quizu)
+            console.log(parsed_favs)
+            checkiffav(true)
+            localStorage.setItem("Zapisane Quizy ID",JSON.stringify(parsed_favs))
+            localStorage.setItem("Zapisane Quizy",JSON.stringify(parsed_favs_user))
+          }
+          else{
+            parsed_favs.splice(finder,1)
+            parsed_favs_user.splice(finder,1)
+            console.log(parsed_favs)
+            checkiffav(false)
+            localStorage.setItem("Zapisane Quizy ID",JSON.stringify(parsed_favs))
+            localStorage.setItem("Zapisane Quizy",JSON.stringify(parsed_favs_user))
+          }
+        }
+      }
+    }
     return (
 <main>
   <div>
     {ifended && !ifalreadydone && !ifcreator ? (
       <>
+      {iffav ? (<img src="/fav.png" width="100px" onClick={dodaj_usun_ulubiony}/>):(<img src="/nfav.png" width="100px" onClick={dodaj_usun_ulubiony}/>)}
         <h2>Zgadnij film!</h2>
         <Formik
           initialValues={{ haslo: "" }}
