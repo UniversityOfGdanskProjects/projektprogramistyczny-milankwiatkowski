@@ -1,7 +1,9 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone", // Optymalizacja dla Vercel
-  reactStrictMode: true,
+  experimental: {
+    turbo: {
+      enabled: false, // WYŁĄCZ Turbopack
+    },
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
