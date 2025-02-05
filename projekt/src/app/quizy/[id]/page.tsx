@@ -13,6 +13,7 @@ type Quiz = {
   podpowiedz:string,
   typ_quizu:string,
   gatunki:Array<number>,
+  gatunki_nazwy:Array<string>,
   ocena:number,
   rok_produkcji:string,
   film_id:number,
@@ -27,7 +28,6 @@ export default function QuizyTekstowe({params}: {params: {id:string}}) {
     // const router = useRouter()
     const [czyGraficzny,sprawdz_czy_graficzny] = useState<boolean>(false)
     const [dane,dane_update] = useState<Quiz | null>(null)
-    const [genres, genres_update] = useState<Array<gatunki>>([])
     const [klikniecia, update_klikniecia] = useState<number>(0)
     const [error, setError] = useState<string>("");
     const [if_used_hints,setHintsTrue] = useState<boolean>(false)
@@ -84,21 +84,6 @@ export default function QuizyTekstowe({params}: {params: {id:string}}) {
       }
       get_quiz_data()
     },[])
-    useEffect(()=>{
-      async function get_quiz_genres():Promise<void>{
-        fetch(`https://api.themoviedb.org/3/genre/movie/list`, options)
-        .then(res => res.json())
-        .then(res =>{
-          if(dane){
-            dane.gatunki.forEach((x)=>{
-              const gatunek = res.genres.find((p:gatunki) => p.id === x)
-              genres_update(lista=>[...lista,gatunek.name])
-            })
-          }
-        })
-      }
-      get_quiz_genres()
-    },[dane])
     // useEffect(()=>{
     //   const gracz = localStorage.getItem("Nick")
     //   if(gracz && dane){

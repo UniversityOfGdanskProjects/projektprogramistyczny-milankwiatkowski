@@ -17,7 +17,7 @@ export default function KontoUzytkownika() {
   }, []);
 
   return (
-    <main className="p-6 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 min-h-screen flex flex-col items-center">
+    <main className="p-6 bg-gradient-to-r from-teal-100 via-cyan-100 to-indigo-100 p-6 min-h-screen flex flex-col items-center py-36">
       <div className="flex justify-center mb-6">
         {profilowe ? (
           <img

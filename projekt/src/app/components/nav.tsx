@@ -14,18 +14,18 @@ export default function Nawigacja(){
         router.push("/")
     }
     function move_to_filter(dane:{value:string}):void{
-      router.push(`/wyszukane-quizy/${dane.value}`)
+      router.push(`/wyszukane-quizy/${dane.value.toLowerCase()}`)
     }
     useEffect(() => {
         const profiloweZLocalStorage = localStorage.getItem("Profilowe");
         setProfilowe(profiloweZLocalStorage);
     }, []);
     return (
-      <nav className="relative fixed top-0 left-0 w-full flex items-center justify-between bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 py-6 px-10 shadow-md z-50 mb-0">
+      <nav className="fixed top-0 left-0 w-full flex items-center justify-between bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 py-6 px-10 shadow-md z-50">
         <div className="flex items-center mr-4">
           <div
             onClick={user}
-            className="cursor-pointer transition-transform transform hover:scale-105"
+            className="cursor-pointer transition-transform hover:scale-105"
           >
             {profilowe ? (
               <img
@@ -40,43 +40,40 @@ export default function Nawigacja(){
         </div>
     
         <div className="absolute left-1/2 transform -translate-x-1/2">
-          <img 
-            src="/logo.png" 
-            width="100px" 
-            className="cursor-pointer transition-transform transform hover:scale-105" 
-            onClick={glowna} 
+          <img
+            src="/logo.png"
+            width="100"
+            className="cursor-pointer transition-transform hover:scale-105"
+            onClick={glowna}
           />
         </div>
     
         <Formik
-                  initialValues={{ value: "",}}
-                  validationSchema={Yup.object({
-                    value: Yup.string().required("Wymagane"),
-                  })}
-                  onSubmit={(values) => move_to_filter(values)}
-                >
-                  {({ isSubmitting }) => (
-                    <Form className="flex flex-col gap-4 bg-white p-8 rounded-xl shadow-2xl w-80">
-                      {error && <div className="text-red-500 font-semibold text-center">{error}</div>}
-                      <Field
-                        name="value"
-                        className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                      />
-                      <ErrorMessage
-                        name="value"
-                        component="div"
-                        className="text-red-500 text-sm"
-                      />
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="bg-blue-500 text-white font-semibold py-2 rounded-lg shadow hover:bg-blue-600 transition-transform transform hover:scale-105"
-                      >
-                        Wyślij
-                      </button>
-                    </Form>
-                  )}
-                </Formik>
+          initialValues={{ value: "" }}
+          validationSchema={Yup.object({
+            value: Yup.string().required("Wymagane"),
+          })}
+          onSubmit={(values) => move_to_filter(values)}
+        >
+          {({ isSubmitting }) => (
+            <Form className="flex items-center gap-2">
+              <Field
+                name="value"
+                placeholder="Szukaj..."
+                className="border border-gray-300 rounded-full px-4 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-400 text-sm placeholder-gray-400 bg-transparent text-white"
+              />
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="text-white text-sm font-medium px-3 py-1 rounded-full hover:bg-white hover:text-indigo-600 transition-colors"
+              >
+                Szukaj
+              </button>
+            </Form>
+          )}
+        </Formik>
       </nav>
     );
+    
+    
 }

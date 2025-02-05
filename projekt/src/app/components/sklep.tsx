@@ -234,9 +234,9 @@ export default function Sklep() {
     }
   }
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-100 via-purple-100 to-pink-100 p-6 flex flex-col items-center">
+    <main className="min-h-screen bg-gradient-to-r from-teal-100 via-cyan-100 to-indigo-100 py-36 flex flex-col items-center">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {[ 
+        {[
           { src: "profilowe-foty/ja1.jpg", price: 10, id: 1 },
           { src: "profilowe-foty/ja2.jpg", price: 20, id: 2 },
           { src: "profilowe-foty/ja3.jpg", price: 30, id: 3 },
@@ -248,10 +248,10 @@ export default function Sklep() {
           { src: "profilowe-foty/kiler-cropped.png", price: 1000, id: 9 }
         ].map(({ src, price, id }) => (
           <div key={id} className="bg-white p-4 rounded-lg shadow-lg flex flex-col items-center">
-            <img src={src} alt={`Profilowe ${id}`} className="w-56 h-56 object-cover rounded-md" />
+            <img src={src} alt={`Profilowe ${id}`} className="w-56 h-56 object-cover rounded-full" />
             <button
               onClick={() => kup(id)}
-              className="mt-4 bg-indigo-500 text-white py-2 px-4 rounded-lg shadow hover:bg-indigo-600 transition-transform transform hover:scale-105"
+              className="mt-4 bg-indigo-500 text-white py-2 px-4 rounded-lg shadow hover:bg-indigo-600 transition-transform hover:scale-105"
             >
               Kup to zdjęcie jako profilowe za {price} MilanCoinów
             </button>
@@ -272,5 +272,4 @@ export default function Sklep() {
       )}
     </main>
   );
-  
 }

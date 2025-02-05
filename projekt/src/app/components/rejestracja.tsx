@@ -61,7 +61,7 @@ export default function Register() {
   }
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 p-6">
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-teal-100 via-cyan-100 to-indigo-100 p-6">
       {isLoggedIn ? (
         <div className="text-center bg-white p-6 rounded-xl shadow-xl">
           <h1 className="text-3xl font-bold text-indigo-700 mb-4">Witaj!</h1>

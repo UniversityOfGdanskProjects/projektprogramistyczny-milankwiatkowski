@@ -11,6 +11,7 @@ type Quiz = {
   podpowiedz:string,
   typ_quizu:string,
   gatunki:Array<number>,
+  gatunki_nazwy:Array<string>,
   ocena:number,
   rok_produkcji:string,
   film_id:number,
