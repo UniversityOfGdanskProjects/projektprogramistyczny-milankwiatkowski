@@ -4,14 +4,18 @@ import path from "path";
 
 const sciezka = path.join(process.cwd(), "public", "database.json");
 type Quiz = {
-    quiz_id: number,
-    tytul:string,
-    opis:string,
-    podpowiedz:string,
-    typ_quizu:string,
-    gatunki:Array<number>,
-    ocena:number,
-    rok_produkcji:string
+  nazwa_quizu:number,
+  quiz_id: number,
+  tytul:string,
+  opis:string,
+  podpowiedz:string,
+  typ_quizu:string,
+  gatunki:Array<number>,
+  ocena:number,
+  rok_produkcji:string,
+  film_id:number,
+  sciezka_obraz:string,
+  tworca:string
 }
 function wczytajDane() {
   try {

@@ -234,50 +234,43 @@ export default function Sklep() {
     }
   }
   return (
-    <main>
-      <img src="profilowe-foty/ja1.jpg" width="225px"></img>
-      <br></br>
-      <button onClick={() => kup(1)}>Kup to zdjęcie jako profilowe za 10 MilanCoinów</button>
-      <br></br>
-      <img src="profilowe-foty/ja2.jpg" width="225px"></img>
-      <br></br>
-      <button onClick={() => kup(2)}>Kup to zdjęcie jako profilowe za 20 MilanCoinów</button>
-      <br></br>
-      <img src="profilowe-foty/ja3.jpg" width="225px"></img>
-      <br></br>
-      <button onClick={() => kup(3)}>Kup to zdjęcie jako profilowe za 30 MilanCoinów</button>
-      <br></br>
-      <img src="profilowe-foty/bartolini-cropped.png" width="225px"></img>
-      <br></br>
-      <button onClick={() => kup(4)}>Kup to zdjęcie jako profilowe za 40 MilanCoinów</button>
-      <br></br>
-      <img src="profilowe-foty/gibalski-cropped.png" width="225px"></img>
-      <br></br>
-      <button onClick={() => kup(5)}>Kup to zdjęcie jako profilowe za 50 MilanCoinów</button>
-      <br></br>
-      <img src="profilowe-foty/osiol-cropped.png" width="225px"></img>
-      <br></br>
-      <button onClick={() => kup(6)}>Kup to zdjęcie jako profilowe za 60 MilanCoinów</button>
-      <br></br>
-      <img src="profilowe-foty/wojt-cropped.png" width="225px"></img>
-      <br></br>
-      <button onClick={() => kup(7)}>Kup to zdjęcie jako profilowe za 100 MilanCoinów</button>
-      <br></br>
-      <img src="profilowe-foty/ksiadz-cropped.png" width="225px"></img>
-      <br></br>
-      <button onClick={() => kup(8)}>Kup to zdjęcie jako profilowe za 100 MilanCoinów</button>
-      <br></br>
-      <img src="profilowe-foty/kiler-cropped.png" width="225px"></img>
-      <br></br>
-      <button onClick={() => kup(9)}>Kup to zdjęcie jako profilowe za 1000 MilanCoinów</button>
-      <div>
+    <main className="min-h-screen bg-gradient-to-b from-blue-100 via-purple-100 to-pink-100 p-6 flex flex-col items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[ 
+          { src: "profilowe-foty/ja1.jpg", price: 10, id: 1 },
+          { src: "profilowe-foty/ja2.jpg", price: 20, id: 2 },
+          { src: "profilowe-foty/ja3.jpg", price: 30, id: 3 },
+          { src: "profilowe-foty/bartolini-cropped.png", price: 40, id: 4 },
+          { src: "profilowe-foty/gibalski-cropped.png", price: 50, id: 5 },
+          { src: "profilowe-foty/osiol-cropped.png", price: 60, id: 6 },
+          { src: "profilowe-foty/wojt-cropped.png", price: 100, id: 7 },
+          { src: "profilowe-foty/ksiadz-cropped.png", price: 100, id: 8 },
+          { src: "profilowe-foty/kiler-cropped.png", price: 1000, id: 9 }
+        ].map(({ src, price, id }) => (
+          <div key={id} className="bg-white p-4 rounded-lg shadow-lg flex flex-col items-center">
+            <img src={src} alt={`Profilowe ${id}`} className="w-56 h-56 object-cover rounded-md" />
+            <button
+              onClick={() => kup(id)}
+              className="mt-4 bg-indigo-500 text-white py-2 px-4 rounded-lg shadow hover:bg-indigo-600 transition-transform transform hover:scale-105"
+            >
+              Kup to zdjęcie jako profilowe za {price} MilanCoinów
+            </button>
+          </div>
+        ))}
+      </div>
+  
       {Alert && (
-        <div className="custom-alert">
+        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white p-4 rounded-lg shadow-lg">
           <p>{latestalert}</p>
-          <button onClick={() => pokazalert(false)}>OK</button>
+          <button
+            onClick={() => pokazalert(false)}
+            className="mt-2 bg-white text-red-500 px-4 py-1 rounded hover:bg-red-100"
+          >
+            OK
+          </button>
         </div>
       )}
-    </div>
     </main>
   );
+  
 }

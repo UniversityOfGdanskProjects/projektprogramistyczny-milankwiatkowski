@@ -1,6 +1,7 @@
 "use client";
 import Nawigacja from "@/app/components/nav_user"
 import KontoUzytkownika from "@/app/components/konto_uzytkownika"
+import Stopka from "@/app/components/stopka"
 export default function User_account() {
-  return (<><Nawigacja/><KontoUzytkownika/></>)
+  return (<><Nawigacja/><KontoUzytkownika/><Stopka/></>)
 }

@@ -17,24 +17,35 @@ export default function KontoUzytkownika() {
   }, []);
 
   return (
-    <main className="p-4 bg-gray-100 min-h-screen">
-      <div className="flex justify-center mb-4">
+    <main className="p-6 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 min-h-screen flex flex-col items-center">
+      <div className="flex justify-center mb-6">
         {profilowe ? (
           <img
             src={profilowe}
             alt="Obrazek z localStorage"
-            className="w-36 h-36 rounded-full border-4 border-blue-500 shadow-md"
+            className="w-40 h-40 rounded-full border-4 border-indigo-500 shadow-xl transition-transform transform hover:scale-105 hover:border-yellow-400"
           />
         ) : (
-          <p className="text-gray-500">Brak zdjęcia profilowego</p>
+          <p className="text-gray-500 italic">Brak zdjęcia profilowego</p>
         )}
       </div>
-      <h2 className="text-2xl font-bold text-center text-blue-700 mb-4">Twoje Konto:</h2>
-      <ul className="space-y-2 max-w-md mx-auto bg-white p-4 rounded-lg shadow-lg">
-        {storageData.map(([key, value]) => (
-          <li key={key} className="border-b last:border-none py-2">
-            <strong className="text-gray-800">{key.toUpperCase()}:</strong> 
-            <span className="text-gray-600"> {value}</span>
+      <h2 className="text-4xl font-extrabold text-center text-indigo-700 mb-6 drop-shadow-md">
+        Twoje Konto
+      </h2>
+      <ul className="space-y-4 w-full max-w-lg bg-white p-6 rounded-2xl shadow-2xl border border-gray-200">
+        {storageData.map(([key, value], index) => (
+          <li
+            key={key}
+            className={`flex justify-between items-center px-4 py-3 rounded-lg shadow-sm transition-colors ${
+              index % 2 === 0 ? "bg-indigo-50 hover:bg-indigo-100" : "bg-yellow-50 hover:bg-yellow-100"
+            }`}
+          >
+            <strong className="text-gray-800 uppercase tracking-wide">
+              {key}:
+            </strong>
+            <span className="text-gray-600 break-words max-w-xs text-right">
+              {value}
+            </span>
           </li>
         ))}
       </ul>

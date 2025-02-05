@@ -1,5 +1,6 @@
 "use client";
 import Nawigacja from "@/app/components/nav"
+import Stopka from "@/app/components/stopka"
 import { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -301,60 +302,101 @@ export default function QuizyTekstowe({params}: {params: {id:string}}) {
       }
     }
     return (
-<main>
-  <div>
-    {ifended && !ifalreadydone && !ifcreator ? (
-      <>
-      {iffav ? (<img src="/fav.png" width="100px" onClick={dodaj_usun_ulubiony}/>):(<img src="/nfav.png" width="100px" onClick={dodaj_usun_ulubiony}/>)}
-        <h2>Zgadnij film!</h2>
-        <Formik
-          initialValues={{ haslo: "" }}
-          validationSchema={Yup.object({
-            haslo: Yup.string().min(1, "Min. 1 znak").required("Wymagane"),
-          })}
-          onSubmit={wyslij}
-        >
-          {() => (
-            <Form className="flex flex-col gap-3">
-              {error && <div className="text-red-500">{error}</div>}
-              <label>Hasło:</label>
-              <br />
-              <Field name="haslo" />
-              <br />
-              <ErrorMessage name="haslo" component="div" className="text-red-500" />
-              <br />
-              <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-                Wyślij
-              </button>
-            </Form>
+      <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-200 via-pink-200 to-red-200 p-6 relative">
+        {iffav ? (
+          <img
+            src="/fav.png"
+            width="40px"
+            onClick={dodaj_usun_ulubiony}
+            className="cursor-pointer hover:scale-105 transition-transform absolute top-4 right-4"
+          />
+        ) : (
+          <img
+            src="/nfav.png"
+            width="40px"
+            onClick={dodaj_usun_ulubiony}
+            className="cursor-pointer hover:scale-105 transition-transform absolute top-4 right-4"
+          />
+        )}
+    
+        <div className="bg-white p-6 rounded-xl shadow-2xl w-full max-w-md text-center">
+          {ifended && !ifalreadydone && !ifcreator ? (
+            <>
+              <h2 className="text-2xl font-bold text-indigo-700 my-4">Zgadnij film!</h2>
+              <Formik
+                initialValues={{ haslo: "" }}
+                validationSchema={Yup.object({
+                  haslo: Yup.string().min(1, "Min. 1 znak").required("Wymagane"),
+                })}
+                onSubmit={wyslij}
+              >
+                {() => (
+                  <Form className="flex flex-col gap-4">
+                    {error && <div className="text-red-500 font-semibold">{error}</div>}
+                    <label className="font-bold text-gray-700">Hasło:</label>
+                    <Field
+                      name="haslo"
+                      className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    />
+                    <ErrorMessage
+                      name="haslo"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                    <button
+                      type="submit"
+                      className="bg-blue-500 text-white font-semibold py-2 rounded-lg shadow hover:bg-blue-600 transition-transform transform hover:scale-105"
+                    >
+                      Wyślij
+                    </button>
+                  </Form>
+                )}
+              </Formik>
+            </>
+          ) : (
+            <p className="text-green-600 text-xl font-bold">Wygrałeś!</p>
           )}
-        </Formik>
-      </>
-    ) : (
-      <p>Wygrałeś!</p>
-    )}
-
-    <p>Ilość prób: {klikniecia}</p>
-
-    {dane ? (
-      <button onClick={daj_podpowiedzi}>Kliknij po podpowiedzi</button>
-    ) : (
-      <p>Ładowanie...</p>
-    )}
-    {czyGraficzny ? (
-      <img src={foteczka} alt="Plakat" width="550px"/>
-    ):(<p></p>)}
-    {wyswietl && <div>{podpowiedzi}</div>}
-    <div>
-      {Alert && (
-        <div className="custom-alert">
-          <p>{latestalert}</p>
-          <button onClick={() => pokazalert(false)}>OK</button>
+    
+          <p className="mt-4 text-gray-700">Ilość prób: {klikniecia}</p>
+    
+          {dane ? (
+            <button
+              onClick={daj_podpowiedzi}
+              className="bg-yellow-400 text-black font-semibold py-2 px-4 rounded-lg shadow hover:bg-yellow-500 transition-transform transform hover:scale-105 mt-2"
+            >
+              Kliknij po podpowiedzi
+            </button>
+          ) : (
+            <p className="italic text-gray-500">Ładowanie...</p>
+          )}
+    
+          {czyGraficzny && (
+            <img
+              src={foteczka}
+              alt="Plakat"
+              width="550px"
+              className="mt-4 rounded-lg shadow-md"
+            />
+          )}
+    
+          {wyswietl && (
+            <div className="bg-indigo-50 p-4 rounded-lg shadow mt-4">
+              {podpowiedzi}
+            </div>
+          )}
+    
+          {Alert && (
+            <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white p-4 rounded-lg shadow-lg">
+              <p>{latestalert}</p>
+              <button
+                onClick={() => pokazalert(false)}
+                className="mt-2 bg-white text-red-500 px-4 py-1 rounded hover:bg-red-100"
+              >
+                OK
+              </button>
+            </div>
+          )}
         </div>
-      )}
-    </div>
-  </div>
-</main>
-
+      </main>
     );
   }

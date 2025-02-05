@@ -34,16 +34,27 @@ export default function QuizyTekstowe() {
     router.push(`/quizy/${id}`)
   }
   return (
-    <main>
-        <div className="max-w-sm rounded overflow-hidden shadow-lg p-4 bg-white">
-        <ul>
-        {quizy ? (quizy.map((x) => (
-          <li key={x.quiz_id}>
-            <button onClick={() => move_to_quiz(x.quiz_id)}><strong>{x.nazwa_quizu.toUpperCase()}</strong><br></br><strong>By: {x.tworca}</strong></button>
-          </li>
-        ))):(<p></p>)}
-      </ul>
-        </div>
+    <main className="flex justify-center items-center min-h-screen bg-gradient-to-r from-teal-100 via-cyan-100 to-indigo-100 p-6">
+      <div className="max-w-sm w-full rounded-xl overflow-hidden shadow-2xl p-6 bg-white border border-gray-300 mb-4">
+        <ul className="space-y-4">
+          {quizy ? (
+            quizy.map((x) => (
+              <li key={x.quiz_id} className="bg-indigo-50 p-4 rounded-lg shadow hover:bg-indigo-100 transition-transform transform hover:scale-105">
+                <button
+                  onClick={() => move_to_quiz(x.quiz_id)}
+                  className="w-full text-left text-indigo-700 font-bold text-lg"
+                >
+                  {x.nazwa_quizu.toUpperCase()}
+                  <br />
+                  <span className="text-gray-600 font-medium">By: {x.tworca}</span>
+                </button>
+              </li>
+            ))
+          ) : (
+            <p className="text-gray-500 italic text-center">Brak dostępnych quizów</p>
+          )}
+        </ul>
+      </div>
     </main>
   );
 }

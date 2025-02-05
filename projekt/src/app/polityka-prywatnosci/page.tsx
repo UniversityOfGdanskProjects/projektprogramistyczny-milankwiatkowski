@@ -1,13 +1,12 @@
 "use client";
-import Home from "@/app/components/glowna"
 import Nawigacja from "@/app/components/nav"
 import Stopka from "@/app/components/stopka"
-export default function Domowa() {
+export default function PolitykaPrywatnosci() {
   return (
     <>
     <Nawigacja/>
-    <Home/>
+    <div>Polityka Prywatności</div>
     <Stopka/>
     </>
-  )
+    )
 }
