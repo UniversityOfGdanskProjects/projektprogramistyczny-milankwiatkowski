@@ -18,16 +18,16 @@ export default function Stopka(){
         setProfilowe(profiloweZLocalStorage);
     }, []);
     return (
-        <footer className="fixed bottom-0 left-0 w-full flex items-center justify-between bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 p-4 shadow-md z-50">
+        <footer className="fixed bottom-0 left-0 w-full flex items-center justify-between bg-gradient-to-r from-red-300 via-pink-300 to-purple-300 p-1 shadow-md z-50">
           <button
             onClick={FAQ}
-            className="bg-white text-indigo-600 font-bold py-2 px-4 rounded-lg shadow hover:bg-yellow-200 transition-colors"
+            className="text-indigo-600 font-bold py-2 px-4 rounded-lg shadow hover:bg-yellow-200 transition-colors"
           >
             FAQ
           </button>
           <button
             onClick={PolitykaPrywatnosci}
-            className="bg-white text-indigo-600 font-bold py-2 px-4 rounded-lg shadow hover:bg-yellow-200 transition-colors"
+            className="text-indigo-600 font-bold py-1 px-2 rounded-lg shadow hover:bg-yellow-200 transition-colors"
           >
             Polityka Prywatności
           </button>

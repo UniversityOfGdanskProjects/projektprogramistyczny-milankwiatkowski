@@ -20,8 +20,9 @@ export default function Nawigacja(){
         const profiloweZLocalStorage = localStorage.getItem("Profilowe");
         setProfilowe(profiloweZLocalStorage);
     }, []);
+    // from-purple-200 via-pink-200 to-red-200
     return (
-      <nav className="fixed top-0 left-0 w-full flex items-center justify-between bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 py-6 px-10 shadow-md z-50">
+      <nav className="fixed top-0 left-0 w-full flex items-center justify-between bg-gradient-to-r from-red-300 via-pink-300 to-purple-300 py-6 px-10 shadow-md z-50">
         <div className="flex items-center mr-4">
           <div
             onClick={user}
@@ -60,12 +61,12 @@ export default function Nawigacja(){
               <Field
                 name="value"
                 placeholder="Szukaj..."
-                className="border border-gray-300 rounded-full px-4 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-400 text-sm placeholder-gray-400 bg-transparent text-white"
+                className="border border-gray-300 rounded-full px-4 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-400 text-sm placeholder-gray-400 bg-gradient-to-r from-purple-200 via-pink-200 to-red-200 text-white"
               />
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="text-white text-sm font-medium px-3 py-1 rounded-full hover:bg-white hover:text-indigo-600 transition-colors"
+                className="text-black-500 text-sm font-medium px-3 py-1 rounded-full bg-gradient-to-r from-purple-200 via-pink-200 to-red-200 hover:bg-white hover:text-indigo-600 transition-colors"
               >
                 Szukaj
               </button>

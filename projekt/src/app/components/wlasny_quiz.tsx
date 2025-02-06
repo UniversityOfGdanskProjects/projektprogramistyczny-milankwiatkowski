@@ -15,7 +15,7 @@ export default function TworzenieQuizu() {
   useEffect(()=>{
     document.title="Stwórz własny quiz na Filmdle!"
   })
-  const dodaj_quiz = async (dane: {nazwa_quizu:string,quiz_id:number,tytul:string,opis:string,podpowiedz:string, typ_quizu:string,gatunki:Array<number>,gatunki_nazwy:Array<string>,ocena:number,rok_produkcji:string,film_id:number,tworca:string,}) => {
+  const dodaj_quiz = async (dane: {nazwa_quizu:string,quiz_id:number,tytul:string,opis:string,podpowiedz:string, typ_quizu:string,gatunki:Array<number>,gatunki_nazwy:Array<string>,ocena:number,rok_produkcji:string,film_id:number,tworca:string,popularnosc:number,}) => {
     const options = {
       method: 'GET',
       headers: {
@@ -32,6 +32,7 @@ export default function TworzenieQuizu() {
           dane.rok_produkcji = res.results[0].release_date
           dane.gatunki = res.results[0].genre_ids
           dane.film_id = res.results[0].id
+          dane.popularnosc = res.results[0].popularity
           const nick = localStorage.getItem("Nick")
           if(nick){
             dane.tworca = nick
@@ -81,7 +82,7 @@ export default function TworzenieQuizu() {
       router.push("/")}
   };
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 p-6">
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-200 via-pink-200 to-red-200 p-6">
       {isLoggedIn ? (
         <div className="text-center bg-white p-6 rounded-xl shadow-xl">
           <h1 className="text-3xl font-bold text-red-700 mb-4">Witaj!</h1>
@@ -94,7 +95,7 @@ export default function TworzenieQuizu() {
         </div>
       ) : (
         <Formik
-          initialValues={{ nazwa_quizu: "", quiz_id: 0, tytul: "", opis: "", podpowiedz: "", typ_quizu: "", gatunki: [],gatunki_nazwy:[], ocena: 0, rok_produkcji: "", film_id: 0, tworca: "" }}
+          initialValues={{ nazwa_quizu: "", quiz_id: 0, tytul: "", opis: "", podpowiedz: "", typ_quizu: "", gatunki: [],gatunki_nazwy:[], ocena: 0, rok_produkcji: "", film_id: 0, tworca: "",popularnosc:0 }}
           validationSchema={Yup.object({
             tytul: Yup.string().required("Wymagane"),
             opis: Yup.string().min(6, "Min. 6 znaków").required("Wymagane"),
