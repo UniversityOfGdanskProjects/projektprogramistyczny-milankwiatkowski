@@ -16,7 +16,8 @@ type Quiz = {
   rok_produkcji:string,
   film_id:number,
   sciezka_obraz:string,
-  tworca:string
+  tworca:string,
+  popularnosc:number
 }
 function wczytajDane() {
   try {
