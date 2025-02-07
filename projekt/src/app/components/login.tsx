@@ -16,10 +16,13 @@ export default function Login() {
     document.title = "Zaloguj się do Filmdle!";
     if (session) {
       setIsLoggedIn(true);
+      router.push("/")
     }
   }, [session]);
-
-  function login(dane) {
+  function rejestracja():void{
+    router.push("/rejestracja")
+  }
+  function login(dane:{email:string,haslo:string}):void {
     if (!dane.email || !dane.haslo) {
       setError("Wszystkie pola są wymagane!");
       return;
@@ -115,6 +118,13 @@ export default function Login() {
           >
             Zaloguj się przez Google
           </button>
+          <div className="py-6 text-black-300 text-lg">
+          <div>Nie masz konta?</div>
+          <button 
+          onClick={rejestracja}
+          className="mt-4 bg-red-500 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-red-600 transition-transform transform hover:scale-105"
+          >Zarejestruj się!</button>
+          </div>
         </>
       )}
     </main>

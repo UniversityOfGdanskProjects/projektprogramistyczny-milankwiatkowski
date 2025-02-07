@@ -12,8 +12,7 @@ export default function KontoUzytkownika() {
   const router = useRouter();
 
   const Wyloguj = () => {
-    router.push("/rejestracja");
-    alert("LocalStorage wyczyszczone!");
+    router.push("/rejestracja")
   };
 
   useEffect(() => {

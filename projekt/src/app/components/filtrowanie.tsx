@@ -2,18 +2,20 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation";
 type Quiz = {
-  nazwa_quizu:string
+  nazwa_quizu:string,
   quiz_id: number,
   tytul:string,
   opis:string,
   podpowiedz:string,
   typ_quizu:string,
   gatunki:Array<number>,
+  gatunki_nazwy:Array<string>,
   ocena:number,
   rok_produkcji:string,
   film_id:number,
   sciezka_obraz:string,
-  tworca:string
+  tworca:string,
+  popularnosc:number
 }
 export default function Filtrowanie({params}: {params: {value:string}}){
   const [quizy,pobierz_quizy] = useState<Array<Quiz>>([])
@@ -30,10 +32,10 @@ export default function Filtrowanie({params}: {params: {value:string}}){
       router.push(`/quizy/${id}`)
     }
     return (
-      <main className="flex justify-center items-center min-h-screen bg-gradient-to-r from-teal-100 via-cyan-100 to-indigo-100 p-6">
+      <main className="flex justify-center items-center min-h-screen bg-gradient-to-r from-purple-200 via-pink-200 to-red-200 p-6">
         <div className="max-w-sm w-full rounded-xl overflow-hidden shadow-2xl p-6 bg-white border border-gray-300 mb-4">
           <ul className="space-y-4">
-            {quizy ? (
+            {quizy.length > 0 ? (
               quizy.map((x) => (
                 <li key={x.quiz_id} className="bg-indigo-50 p-4 rounded-lg shadow hover:bg-indigo-100 transition-transform transform hover:scale-105">
                   <button

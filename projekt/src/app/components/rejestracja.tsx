@@ -37,7 +37,6 @@ export default function Register() {
       const odblokowane_id:Array<number> = [];
       localStorage.setItem("email", session.user.email || "");
       localStorage.setItem("Nick", session.user.name || "Nowy Użytkownik");
-      localStorage.setItem("Profilowe", session.user.image || "/user-icon.png");
       localStorage.setItem("Poziom", JSON.stringify(1));
       localStorage.setItem("MilanCoiny", JSON.stringify(0));
       localStorage.setItem("Zapisane Quizy", JSON.stringify([]));
@@ -48,11 +47,12 @@ export default function Register() {
       localStorage.setItem("Utworzone Quizy", JSON.stringify(0));
       localStorage.setItem("Zakupione Awatary", JSON.stringify(0));
       localStorage.setItem("Wydano na Awatary", JSON.stringify(0));
+      zapiszobrazek()
       router.push("/");
     }
   }, [session]);
 
-  function rejestracja(dane) {
+  function rejestracja(dane: {email:string,haslo:string,powtorzhaslo:string,nick:string}) {
     if (!dane.email || !dane.haslo || !dane.powtorzhaslo || !dane.nick) {
       setError("Wszystkie pola są wymagane!");
       return;

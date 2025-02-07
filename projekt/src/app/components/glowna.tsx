@@ -21,7 +21,7 @@ export default function Home() {
     router.push("/sklep")
   }
   return (
-    <main className="h-screen flex items-center justify-center bg-gradient-to-r from-teal-100 via-cyan-100 to-indigo-100 p-6">
+    <main className="h-screen flex items-center justify-center bg-gradient-to-r from-purple-200 via-pink-200 to-red-200 p-6">
       <div className="flex flex-col items-center gap-6 bg-white p-8 rounded-2xl shadow-2xl">
         <div
           onClick={tekstowy}

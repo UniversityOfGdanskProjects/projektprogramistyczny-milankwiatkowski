@@ -10,11 +10,13 @@ type Quiz = {
   podpowiedz:string,
   typ_quizu:string,
   gatunki:Array<number>,
+  gatunki_nazwy:Array<string>,
   ocena:number,
   rok_produkcji:string,
   film_id:number,
   sciezka_obraz:string,
-  tworca:string
+  tworca:string,
+  popularnosc:number
 }
 export default function QuizyTekstowe() {
   const router = useRouter() 
@@ -31,10 +33,10 @@ export default function QuizyTekstowe() {
     .catch(err => console.log(err))
   },[])
   function move_to_quiz(id:number):void{
-    router.push(`/quizy/${id}`)
+    router.push(`/quizy/${id.toString()}`)
   }
   return (
-    <main className="flex justify-center items-center min-h-screen bg-gradient-to-r from-teal-100 via-cyan-100 to-indigo-100 p-6">
+    <main className="flex justify-center items-center min-h-screen bg-gradient-to-r from-purple-200 via-pink-200 to-red-200 p-6">
       <div className="max-w-sm w-full rounded-xl overflow-hidden shadow-2xl p-6 bg-white border border-gray-300 mb-4">
         <ul className="space-y-4">
           {quizy ? (
