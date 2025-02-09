@@ -1,10 +1,7 @@
 "use client";
-import Nawigacja from "@/app/components/nav"
-import Stopka from "@/app/components/stopka"
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-// import { useRouter } from "next/navigation";
 type Quiz = {
   nazwa_quizu:string,
   quiz_id: number,
@@ -26,6 +23,7 @@ type gatunki = {
   name:string
 }
 export default function Quiz({params}: {params: {id:string}}) {
+    const [resolvedParams, setResolvedParams] = useState<{id: string;} | null>(null);    
     const [czyGraficzny,sprawdz_czy_graficzny] = useState<boolean>(false)
     const [dane,dane_update] = useState<Quiz | null>(null)
     const [klikniecia, update_klikniecia] = useState<number>(1)
@@ -47,7 +45,28 @@ export default function Quiz({params}: {params: {id:string}}) {
         accept: 'application/json',
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMTAwODQ0MjRiZTBiMjJkMzg2Mjc5NGYwMmM0YjJmMiIsIm5iZiI6MTczNzY1Mjk3Mi43MTYsInN1YiI6IjY3OTI3YWVjODNkMTgyNDA0ZWVhZDgxYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WkMZ_rtDeywYzT-iQgIGqNtE28gVa00xnTtl4bhJyGM'
       }
-    };
+    }
+    useEffect(()=>{
+      async function xyz(){
+        const a = await params
+        async function get_quiz_data():Promise<void>{
+          fetch(`/api/get_quiz_data?id=${a.id}`,{
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+          })
+          .then(res=>res.json())
+          .then(res=>{
+            dane_update(res.finder)
+            if(res.finder.typ_quizu=="Graficzny"){
+              sprawdz_czy_graficzny(true)
+            }
+          })
+          .catch(err=>console.log(err))
+        }
+        get_quiz_data()
+      }
+      xyz()
+    },[params])
     function osiagniecia(osiagniecie:string){
       const kaska = localStorage.getItem("MilanCoiny")
       const achievements = localStorage.getItem("Osiągnięcia")
@@ -67,23 +86,6 @@ export default function Quiz({params}: {params: {id:string}}) {
     useEffect(()=>{
       document.title="Filmdle!"
     })
-    useEffect(()=>{
-      async function get_quiz_data():Promise<void>{
-        fetch(`/api/get_quiz_data?id=${params.id}`,{
-          method: "GET",
-          headers: { "Content-Type": "application/json" }
-        })
-        .then(res=>res.json())
-        .then(res=>{
-          dane_update(res.finder)
-          if(res.finder.typ_quizu=="Graficzny"){
-            sprawdz_czy_graficzny(true)
-          }
-        })
-        .catch(err=>console.log(err))
-      }
-      get_quiz_data()
-    },[])
     // useEffect(()=>{
     //   const gracz = localStorage.getItem("Nick")
     //   if(gracz && dane){
